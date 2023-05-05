@@ -2,6 +2,13 @@
 
 //const url = "https://raw.githubusercontent.com/DesmondAI/CSV-GUI/main/data.csv?token=GHSAT0AAAAAAB4TSUOOETRLVYDFUW7YCJYYY53PRCQ";
 
+//once the website is reloaded the frame will always be at the top
+window.addEventListener('load', () => {
+    const topAnchor = document.getElementById('home');
+    topAnchor.scrollIntoView();
+    document.documentElement.scrollTop = 0;
+});
+
 // getData function for building html table
 var h;
 
@@ -9,7 +16,9 @@ var h;
 function openNewTable() {
     var tableHTML = document.getElementById("container").innerHTML;
     var newTable = window.open("Tablepage.html");
-    newTable.document.write(tableHTML);
+    newTable.document.write(tableHTML);        
+    document.body.style.overflow = "auto";
+    document.body.style.overflow = "auto";
 };
 //function to open new plot tab
 function openNewPlot() {
@@ -345,6 +354,7 @@ async function plot() {
     openNewPlot();
 
 }
+
 
 /*Event listener to obtaining 1st graph y variable
 
