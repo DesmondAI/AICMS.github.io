@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>AICMS</title>
+<link rel = "shortcut icon" href = "build/favicon.ico">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+
+body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif;}
+body, html {
+  height: 100%;
+  color: #777;
+  line-height: 1.8;
+  overflow: hidden;
+  touch-action:  auto;
+  zoom:  1;
+}
+
+/* Create a Parallax Effect */
+.bgimg-1, .bgimg-2, .bgimg-3 {
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+/* First image (Logo. Full height) */
+.bgimg-1 {
+  background-image: url('https://mma.prnewswire.com/media/1476200/Aidrivers_Ltd_Logo.jpg?p=facebook');
+  min-height: 110%;
+}
+
+/* Second image (Portfolio) */
+.bgimg-2 {
+  background-image: url("https://www.aidrivers.ai/build/_assets/truck-YISV2MTG.png");
+  min-height: 400px;
+}
+
+/* Third image (Contact) */
+.bgimg-3 {
+  background-image: url("https://gumlet.assettype.com/transportandlogisticsme%2F2022-08%2Fa59eb71d-a138-4c70-a44e-e0552c2b9f60%2FAId_Drivers_AD_ports.jpeg?rect=0%2C216%2C1400%2C788&auto=format%2Ccompress&fit=max&format=webp&w=480&dpr=2.6");
+  min-height: 400px;
+}
+
+.w3-wide {letter-spacing: 10px;}
+.w3-hover-opacity {cursor: pointer;}
+
+/* Turn off parallax scrolling for tablets and phones */
+@media only screen and (max-device-width: 1600px) {
+  .bgimg-1, .bgimg-2, .bgimg-3 {
+    background-attachment: scroll;
+    min-height: 400px;
+  }
+}
+
+#myPlot {
+  width: 50%;
+  height: 600px;
+}
+
+/* Input section */
+input[type="text"] {
+  padding: 2px;
+  margin: 10px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  width: 150px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+
+}
+
+datalist {
+  max-height: 100px;
+  overflow-y: auto;
+}
+
+/* Button section */
+button {
+  padding: 4px 30px;
+  margin: 30px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+button:hover {
+  background-color: #3e8e41;
+}
+
+/* Table section */
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+th, td {
+  text-align: center;
+  padding: 15px;
+}
+
+th {
+  background-color: #4CAF50;
+  color: white;
+}
+
+tr:nth-child(even){background-color: #f2f2f2}
+
+tr:hover {background-color: #ddd;}
+
+/* table rules */
+table {
+    border-collapse: collapse;
+}
+
+tr:nth-child(odd) {
+    background: lightgray;
+}
+
+td {
+    padding: 4px 12px;
+}
+
+/* Styling for the popup element */
+#loginPopup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000; /* Make the popup appear above the background */
+  width: 500px;
+  height: 400px;
+  background-color: white;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Styling for the login form */
+#login-form {
+  width: 80%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  filter:  none;
+}
+
+#login-form input {
+  margin-bottom: 20px;
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+  background-color: #f1f1f1;
+  width: 100%;
+}
+
+#login-form button {
+  margin-top: 20px;
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+  background-color: #333;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+#login-form button:hover {
+  background-color: #555;
+}
+
+body.blur:not(#myPopup) {
+  backdrop-filter:  blur(20px);
+  opacity: 0.6;
+}
+
+
+</style>
+<!-- Plotly.js -->
+<script src="https://cdn.plot.ly/plotly-2.20.0.min.js"></script>
+
+</head>
+<body>
+
+<!-- Navbar (sit on top) -->
+<div class="w3-top">
+  <nav class="w3-bar" id="myNavbar">
+    <a class="w3-bar-item w3-button w3-hover-black w3-hide-medium w3-hide-large w3-right" href="javascript:void(0);" onclick="toggleFunction()" title="Toggle Navigation Menu">
+      <i class="fa fa-bars"></i>
+    </a>
+    <a href="#" class="w3-bar-item w3-button w3-hide-small w3-right w3-hover-red">
+      <i style="width: 20px; height: 20px;" class="fa fa-user" id="loginButton"></i>
+    </a>
+  </nav>
+  <!-- Login pop-up -->
+  <div id="loginPopup" style="display: none;">
+    <form id="login-form">
+      <label for="username">Username:</label>
+      <input type="text" id="username" name="username"><br>
+
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password"><br>
+
+      <button type="submit">Login</button>
+    </form>
+  </div>
+  <script>
+    const myButton = document.querySelector('#loginButton');
+    const myPopup = document.querySelector('#loginPopup');
+    const username = document.getElementById("username");
+    const password = document.getElementById("password");
+    const mylogin = document.querySelector("#login-form");
+    const mynav = document.getElementById("myNavbar");
+
+    username.value = '';
+    password.value = '';
+
+    if (myPopup) {
+      myButton.addEventListener('click', function() {
+        if (myPopup.style.display === 'none') {
+          myPopup.style.display = 'block';
+          document.body.classList.toggle('blur');
+        } else {
+          myPopup.style.display = 'none';
+          document.body.classList.remove('blur');
+        }
+      });
+    } else {
+      console.error('The #popup element does not exist in the HTML document.');
+    };
+
+    mylogin.addEventListener('submit', (event) => {
+      event.preventDefault();
+      console.log(username);
+      console.log(password);
+      if (username.value === "admin" && password.value === "@1Drivers75") {
+        //if coorect, close popup and enable scrolling
+        myPopup.style.display = "none";
+        document.documentElement.style.overflow = "auto";
+        document.body.style.overflow = "auto";
+        document.body.classList.remove('blur');
+        const newTags = document.createElement('div');
+        newTags.innerHTML = '<a class="w3-bar-item w3-button w3-hover-black w3-hide-medium w3-hide-large w3-right" href="javascript:void(0);" onclick="toggleFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a><a href="#home" class="w3-bar-item w3-button">HOME</a><a href="#about" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-th"></i> TABLE</a><a href="#portfolio" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-bars"></i> GRAPHICAL ANALYSIS</a><a href="#" class="w3-bar-item w3-button w3-hide-small w3-right w3-hover-red"><i style="width: 20px; height: 20px;" class="fa fa-user" id="loginButton"></i></a>';
+        //insert new tags after the myNavBar element
+
+
+      } else {
+        //if incorrect, display error message
+        alert("Invalid Entry!");
+      }
+
+    });
+
+  </script>
+
+  <!-- Navbar on small screens -->
+  <div id="navDemo" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium">
+    <a href="#about" class="w3-bar-item w3-button" onclick="toggleFunction()">TABLE</a>
+    <a href="#portfolio" class="w3-bar-item w3-button" onclick="toggleFunction()">GRAPHICAL ANALYSIS</a>
+  </div>
+</div>
+
+
+<!-- First Parallax Image with Logo Text -->
+<div class="bgimg-1 w3-display-container w3-opacity-min" id="home">
+  <div class="w3-display-middle" style="white-space:nowrap;" >
+    <span class="w3-center w3-padding-large w3-black w3-xlarge w3-wide w3-animate-opacity" >CONDITION <span class="w3-hide-small">MONITORING </span>SYSTEM</span>
+  </div>
+</div>
+
+<!-- Container (About Section) -->
+<div class="w3-content w3-container w3-padding-64" id="about">
+  <h3 class="w3-center w3-wide w3-white" style="font-weight: bold; font-size: 30px;">Tabulation</h3>
+  <div class="w3-row">
+    <div class="w3-col m6 w3-center w3-padding-large">
+      <form id="myForm" class="w3-center" style="margin-top: 28px;">
+
+        <input type="file" id="csvFile" accept=".csv" style="max-width: 600px;" >
+        <br/>
+        <!--<input type="submit" value="Submit" /> -->
+
+    </form><br>
+
+    <script>
+
+        const myForm = document.getElementById("myForm");
+        const csvFile = document.getElementById("csvFile");
+        let text = "";
+
+        myForm.addEventListener("change", function (e) {
+            e.preventDefault();
+            const input = csvFile.files[0];
+            const reader = new FileReader();
+            
+            reader.onload = function (e) {
+                text = e.target.result; //the csv file should be converted to string here
+            };
+
+            reader.readAsText(input);
+            
+                
+        });
+        
+    </script>
+    </div>
+
+    <!-- Hide this text on small devices -->
+    <div class="w3-col m6 w3-padding-large w3-center  ">
+      <button onclick="getData()">Tabulate</button>
+    </div>
+  </div>
+
+    <div style="width: 880px; height: 800px; overflow: auto" id="container"></div>
+
+</div>
+
+<!-- Second Parallax Image with Portfolio Text -->
+<div class="bgimg-2 w3-display-container w3-opacity-min">
+  <div class="w3-display-middle">
+     <span class="w3-xxlarge w3-text-white w3-wide">Graph Plotting</span>
+  </div>
+</div>
+
+<!-- Container (Contact Section) -->
+<div class="w3-content w3-container w3-padding-64" id="portfolio">
+
+  <h3 class="w3-center">GRAPHICAL ANALYSIS</h3>
+
+  <div class="w3-row w3-section">
+    <div class="m8 " style="flex-wrap: wrap; display: flex; justify-content: center;">
+
+    <input type="text" list="x_datas" name="x_selected" placeholder="time variable">
+    <datalist id="x_datas">
+    </datalist>
+
+    <input type="text" list="y_datas" name="y_selected" placeholder="1st variable">
+    <datalist id="y_datas">   
+    </datalist>
+
+    <input type="text" list="y_datas" name="y_selected2" placeholder="2nd variable">
+    <datalist id="y_datas">   
+    </datalist>
+
+    <input type="text" list="y_datas" name="y_selected3" placeholder="3rd variable">
+    <datalist id="y_datas">   
+    </datalist>
+
+    <input type="text" list="y_datas" name="y_selected4" placeholder="4th variable">
+    <datalist id="y_datas">   
+    </datalist>
+    </div>
+
+    <button class=" w3-center w3-black w3-wide" style="font-weight: bold; font-size: 20px; margin-left: 410px;" onclick="plot()">Plot</button>
+    <button class="w3-center w3-blue w3-wide" style="font-weight: bold; font-size: 20px; margin-left: 324px; margin-bottom: 40px;">Live Plotting</button>
+
+  </div>
+</div>
+
+<!-- Footer -->
+<footer class="w3-center w3-black w3-padding-64 w3-opacity w3-hover-opacity-off">
+  <a href="#home" class="w3-button w3-light-grey"><i class="fa fa-arrow-up w3-margin-right"></i>To the top</a>
+</footer>
+ 
+<script>
+// Change style of navbar on scroll
+window.onscroll = function() {myFunction()};
+function myFunction() {
+    var navbar = document.getElementById("myNavbar");
+    if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+        navbar.className = "w3-bar" + " w3-card" + " w3-animate-top" + " w3-white";
+    } else {
+        navbar.className = navbar.className.replace(" w3-card w3-animate-top w3-white", "");
+    }
+}
+
+// Used to toggle the menu on small screens when clicking on the menu button
+function toggleFunction() {
+    var x = document.getElementById("navDemo");
+    if (x.className.indexOf("w3-show") == -1) {
+        x.className += " w3-show";
+    } else {
+        x.className = x.className.replace(" w3-show", "");
+    }
+}
+</script>
+<script src="main.js"></script>
+</body>
+</html>
