@@ -1,3 +1,23 @@
+// Device detection
+var isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+
+// Redirect mobile users
+if (isMobile) {
+    const redirect = '<DOCTYPE html><head>  <style>    body {display: flex; flex-direction: column; text-align: center; justify-content: center; align-items: center; height; 100vh;}</style>  <title>Error</title></head><body>  <h1 style = "color: red; font-size: 30px">Mobile Access Restricted</h1> <p style = "font-size: 26px;">Please access this website from a desktop device to view its content.</p></body></html>';
+    setTimeout(function() {
+        document.open();
+        console.log("yes the string is opened here");
+        document.write(redirect);
+        document.close();
+    }, 2000);
+};
+
+
+//prevent pinching to zoom in (if i want to create mobile version)
+document.addEventListener('gesturestart', function(event) {
+    event.preventDefault();
+});
+
 // data source
 
 //const url = "https://raw.githubusercontent.com/DesmondAI/CSV-GUI/main/data.csv?token=GHSAT0AAAAAAB4TSUOOETRLVYDFUW7YCJYYY53PRCQ";
@@ -352,6 +372,15 @@ async function retrieve() {
 async function plot() {
     retrieve()
     openNewPlot();
+
+}
+
+//open a new html file
+function openLive() {
+    window.location.href = "build/live.html";
+}
+
+function liveplot() {
 
 }
 
