@@ -11,7 +11,7 @@ hidfoot.style.display = "none";
 //getting the link of github page
 const user = 'plotaidrivers';
 const repository = 'AICMS.github.io';
-const branch = 'DesmondAI-alpha-ver3'
+const branch = 'DesmondAI-alpha-ver3';
 const url = `https://githubbox.com/${user}/${repository}/tree/${branch}`;
 console.log(url);
 
